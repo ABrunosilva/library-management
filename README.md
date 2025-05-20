@@ -1,59 +1,66 @@
-# LibraryManagement
+# 📚 Biblioteca Management System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Angular](https://img.shields.io/badge/Angular-16+-DD0031.svg)
+![Node.js](https://img.shields.io/badge/Node.js-18+-339933.svg)
+![API](https://img.shields.io/badge/API-JWT_Protected-FF6F61.svg)
 
-## Development server
+Um sistema completo para gerenciamento de bibliotecas pessoais com autenticação segura e operações CRUD. Desenvolvido com Angular e integrado a APIs RESTful.
 
-To start a local development server, run:
+![Dashboard Preview](https://via.placeholder.com/800x400.png?text=Library+Dashboard+Preview) <!-- Adicione screenshot real -->
 
+## 🌟 Recursos Principais
+
+### Funcionalidades Essenciais
+- 🔐 Autenticação JWT com refresh tokens
+- 📖 CRUD completo de livros (título, autor, gênero, ISBN)
+- 👤 Gerenciamento de perfil do usuário
+- 🔍 Busca inteligente e filtros dinâmicos
+- 📱 Design responsivo para todos os dispositivos
+
+### Stack Tecnológica
+| Camada       | Tecnologias                                 |
+|--------------|--------------------------------------------|
+| **Frontend** | Angular 16+, Angular Material, RxJS        |
+| **Backend**  | Node.js/Express, MongoDB (ou JSON Server)  |
+| **Segurança**| JWT, Bcrypt, CORS middleware               |
+| **Ferramentas**| Postman, Swagger, GitHub Actions         |
+
+---
+
+## 🚀 Começando
+
+### Pré-requisitos
+- Node.js 18+
+- Angular CLI 16+
+- MongoDB 6+ (ou Docker para containerização)
+- Postman (para testes de API)
+
+### ⚙️ Instalação
+
+1. **Clone o repositório**
 ```bash
-ng serve
-```
+git clone https://github.com/seu-usuario/library-management.git
+cd library-management
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+2.Configure o backend
 
-## Code scaffolding
+bash
+cd backend
+npm install
+cp .env.example .env # Configure suas variáveis
+npm run dev
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+3.Configure o frontend
 
-```bash
-ng generate component component-name
-```
+bash
+cd frontend
+npm install
+ng serve --open
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+4.Acesse o sistema
 
-```bash
-ng generate --help
-```
+Frontend: http://localhost:4200
+Backend: http://localhost:3000
+API Docs: http://localhost:3000/api-docs
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

@@ -9,6 +9,12 @@
       "email": "bruno_silva_a@outlook.com",
       "password": "$2a$10$Er11c/jeFO1VRZbsfaUa9.OMeAcHR965M56B7rbVTNozR6vU55mMG",
       "id": 2
+    },
+    {
+      "email": "junior2007_7@hotmail.com",
+      "password": "$2a$10$XY1o0t9ti7D9BFrjKE/RYevbsSSeJtIvbDfZdHbxEGa5YO5BMRz3G",
+      "name": "jose artur brunos",
+      "id": 3
     }
   ],
   "books": [
