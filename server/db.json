@@ -1,11 +1,36 @@
 {
-  "users": [],
+  "users": [
+    {
+      "email": "ageemage@gmail.com",
+      "password": "$2a$10$HeU8S2sOMU1EhGFVuNieCOnjG.BbB2K5Gh5wcndu4O5ob6JLmiJD6",
+      "id": 1
+    },
+    {
+      "email": "bruno_silva_a@outlook.com",
+      "password": "$2a$10$Er11c/jeFO1VRZbsfaUa9.OMeAcHR965M56B7rbVTNozR6vU55mMG",
+      "id": 2
+    }
+  ],
   "books": [
     {
-      "id": 1,
-      "title": "Clean Code",
-      "author": "Robert C. Martin",
-      "userId": 1  # Relação com usuário
+      "title": "a casa amarela",
+      "author": "eu mesmo",
+      "id": 1
+    },
+    {
+      "title": "a casa amarela 2",
+      "author": "eu dnv",
+      "id": 2
+    },
+    {
+      "title": "a casa 3",
+      "author": "eu mias uma vez",
+      "id": 3
+    },
+    {
+      "title": "eus",
+      "author": "eu dnvssss",
+      "id": 4
     }
   ],
   "profile": {

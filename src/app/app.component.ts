@@ -1,12 +1,15 @@
+// src/app/app.component.ts
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './shared/header/header.component';
 
 @Component({
+  standalone: true,
+  imports: [RouterOutlet, HeaderComponent],
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  template: `
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+  `
 })
-export class AppComponent {
-  title = 'library-management';
-}
+export class AppComponent {}

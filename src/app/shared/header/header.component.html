@@ -1,1 +1,9 @@
-<p>header works!</p>
+<!-- src/app/shared/header/header.component.html -->
+<nav class="bg-white shadow p-4 flex justify-between items-center">
+  <div class="font-bold text-xl">Minha Biblioteca</div>
+  <ul class="flex space-x-4">
+    <li><a routerLink="/home/books" routerLinkActive="font-semibold" [routerLinkActiveOptions]="{exact:true}">Livros</a></li>
+    <li><a routerLink="/home/profile" routerLinkActive="font-semibold">Perfil</a></li>
+    <li><a (click)="logout()">Sair</a></li>
+  </ul>
+</nav>

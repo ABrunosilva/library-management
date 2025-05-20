@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+/* src/styles.scss */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.app-button-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow;
+}
+.app-button-secondary {
+  @apply bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded border;
+}
+.app-button-danger {
+  @apply bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded;
+}
+.app-input {
+  @apply w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring focus:border-blue-300;
+}
+
+.table-header {
+  @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+}
+
+.table-cell {
+  @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+}
+
+.card-hover {
+  transition: transform 0.2s ease-in-out;
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.genre-tag {
+  transition: background-color 0.2s ease;
+}
