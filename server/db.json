@@ -1,0 +1,19 @@
+{
+  "users": [],
+  "books": [
+    {
+      "id": 1,
+      "title": "Clean Code",
+      "author": "Robert C. Martin",
+      "userId": 1  # Relação com usuário
+    }
+  ],
+  "profile": {
+    "id": 1,
+    "userId": 1,
+    "bio": "Bibliotecário chefe"
+  },
+  "_auth": {
+    "isAuth": false
+  }
+}
