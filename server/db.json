@@ -19,16 +19,6 @@
   ],
   "books": [
     {
-      "title": "a casa amarela",
-      "author": "eu mesmo",
-      "id": 1
-    },
-    {
-      "title": "a casa amarela 2",
-      "author": "eu dnv",
-      "id": 2
-    },
-    {
       "title": "a casa 3",
       "author": "eu mias uma vez",
       "id": 3
@@ -42,6 +32,11 @@
       "title": "eusss",
       "author": "isso",
       "id": 5
+    },
+    {
+      "title": "ha ha",
+      "author": "ass",
+      "id": 6
     }
   ],
   "profile": {

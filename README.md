@@ -49,7 +49,7 @@ bash
 cd backend
 npm install
 cp .env.example .env # Configure suas variáveis
-npm run dev
+npm run server
 
 3.Configure o frontend
 
