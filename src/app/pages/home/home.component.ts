@@ -13,7 +13,8 @@ import { HeaderComponent } from '../../shared/header/header.component';
 
         <!-- Dashboard cards -->
         <h1 class="text-3xl font-bold text-gray-800 mb-8">Bem-vindo à Biblioteca</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+
           <a routerLink="books" class="block bg-white p-6 rounded-2xl shadow hover:shadow-lg transition hover:scale-105">
             <h2 class="text-xl font-semibold text-gray-700 mb-2">Meus Livros</h2>
             <p class="text-gray-600">Gerencie os livros cadastrados por você.</p>
@@ -24,10 +25,18 @@ import { HeaderComponent } from '../../shared/header/header.component';
             <p class="text-gray-600">Adicione títulos à sua coleção.</p>
           </a>
 
+          
+
+          <a routerLink="authors/new" class="block bg-white p-6 rounded-2xl shadow hover:shadow-lg transition hover:scale-105">
+            <h2 class="text-xl font-semibold text-gray-700 mb-2">Autores</h2>
+            <p class="text-gray-600">Gerencie os autores cadastrados.</p>
+          </a>
+
           <a routerLink="profile" class="block bg-white p-6 rounded-2xl shadow hover:shadow-lg transition hover:scale-105">
             <h2 class="text-xl font-semibold text-gray-700 mb-2">Editar Perfil</h2>
             <p class="text-gray-600">Atualize suas informações de usuário.</p>
           </a>
+
         </div>
 
         <!-- Aqui o conteúdo das rotas filhas será renderizado -->

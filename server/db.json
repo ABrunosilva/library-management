@@ -19,29 +19,19 @@
   ],
   "books": [
     {
-      "title": "a casa 3",
-      "author": "eu mias uma vez",
-      "id": 3
-    },
-    {
-      "title": "eus",
-      "author": "eu dnvssss",
-      "id": 4
-    },
-    {
-      "title": "eusss",
-      "author": "isso",
-      "id": 5
-    },
-    {
-      "title": "ha ha",
-      "author": "ass",
-      "id": 6
-    },
-    {
       "title": "a casa",
       "authorId": "1",
       "id": 7
+    },
+    {
+      "title": "a cas 2",
+      "authorId": "1",
+      "id": 8
+    },
+    {
+      "title": "a casa 3",
+      "authorId": "1",
+      "id": 9
     }
   ],
   "profile": {

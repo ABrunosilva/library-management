@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BookService } from '../../services/book.service';
 import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
+import { BookService } from '../../services/book.service';
+import { AuthorService } from '../../services/author.service';
 
 @Component({
   standalone: true,
@@ -36,10 +37,7 @@ import { finalize } from 'rxjs';
             <td class="px-4 py-3">{{ book.title }}</td>
             <td class="px-4 py-3">{{ book.author }}</td>
             <td class="px-4 py-3 text-right">
-              <a
-                [routerLink]="['/home/books/edit', book.id]"
-                class="app-button-secondary mr-2"
-              >
+              <a [routerLink]="['/home/books/edit', book.id]" class="app-button-secondary mr-2">
                 Editar
               </a>
               <button
@@ -61,16 +59,29 @@ export class BooksComponent implements OnInit {
   errorMessage = '';
   isDeleting: number | null = null;
 
-  constructor(private bookService: BookService) {}
+  constructor(
+    private bookService: BookService,
+    private authorService: AuthorService
+  ) {}
 
   ngOnInit() {
     this.loadBooks();
   }
 
   private loadBooks() {
-    this.bookService.getAll().subscribe({
-      next: (books) => this.books = books,
-      error: (err) => this.errorMessage = err.message
+    this.authorService.getAll().subscribe({
+      next: (authors) => {
+        this.bookService.getAll().subscribe({
+          next: (books) => {
+            this.books = books.map(book => ({
+              ...book,
+              author: authors.find(a => a.id === +book.authorId)?.name || 'Autor desconhecido'
+            }));
+          },
+          error: (err) => this.errorMessage = 'Erro ao carregar livros: ' + err.message
+        });
+      },
+      error: (err) => this.errorMessage = 'Erro ao carregar autores: ' + err.message
     });
   }
 
@@ -82,7 +93,7 @@ export class BooksComponent implements OnInit {
       finalize(() => this.isDeleting = null)
     ).subscribe({
       next: () => this.books = this.books.filter(b => b.id !== id),
-      error: (err) => this.errorMessage = err.message
+      error: (err) => this.errorMessage = 'Erro ao excluir: ' + err.message
     });
   }
 }
