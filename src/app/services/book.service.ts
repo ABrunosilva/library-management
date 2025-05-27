@@ -5,7 +5,7 @@ import { catchError, tap, Observable, throwError } from 'rxjs';
 interface Book {
   id?: number;
   title: string;
-  author: string;
+  authorId: number;  // id do autor
   userId: number;
 }
 
@@ -37,6 +37,13 @@ export class BookService {
     );
   }
 
+  // Novo método para pegar livros por autor
+  getByAuthorId(authorId: number): Observable<Book[]> {
+    return this.http.get<Book[]>(`${this.apiUrl}?authorId=${authorId}`, { headers: this.authHeaders }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   create(book: Omit<Book, 'id'>): Observable<Book> {
     return this.http.post<Book>(this.apiUrl, book, { headers: this.authHeaders }).pipe(
       tap(() => console.log('Livro criado com sucesso:', book)),
@@ -60,14 +67,14 @@ export class BookService {
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Erro desconhecido';
-    
+
     if (error.error instanceof ErrorEvent) {
       // Erro do cliente
       errorMessage = `Erro: ${error.error.message}`;
     } else {
       // Erro do servidor
       errorMessage = `Código: ${error.status}\nMensagem: ${error.message}`;
-      
+
       // Mensagens específicas para códigos de status comuns
       switch (error.status) {
         case 401:
@@ -81,7 +88,7 @@ export class BookService {
           break;
       }
     }
-    
+
     console.error('Erro na operação:', error);
     return throwError(() => new Error(errorMessage));
   }

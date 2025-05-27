@@ -37,6 +37,11 @@
       "title": "ha ha",
       "author": "ass",
       "id": 6
+    },
+    {
+      "title": "a casa",
+      "authorId": "1",
+      "id": 7
     }
   ],
   "profile": {
@@ -46,5 +51,12 @@
   },
   "_auth": {
     "isAuth": false
-  }
+  },
+  "authors": [
+    {
+      "name": "bruno silva",
+      "nationality": "br",
+      "id": 1
+    }
+  ]
 }

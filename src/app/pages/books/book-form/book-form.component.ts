@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { BookService } from '../../../services/book.service';
+import { AuthorService } from '../../../services/author.service'; // importe o AuthorService
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
+import { Author } from '../../../models/author.model'; // importe o modelo Author
 
 @Component({
   standalone: true,
@@ -35,13 +37,15 @@ import { AuthService } from '../../../services/auth.service';
 
         <div>
           <label class="block text-sm font-medium mb-1">Autor</label>
-          <input
-            formControlName="author"
+          <select
+            formControlName="authorId"
             class="app-input"
-            placeholder="Ex: Machado de Assis"
-            [class.border-red-500]="form.get('author')?.invalid && form.get('author')?.touched"
-          />
-          <div *ngIf="form.get('author')?.errors?.['required'] && form.get('author')?.touched"
+            [class.border-red-500]="form.get('authorId')?.invalid && form.get('authorId')?.touched"
+          >
+            <option value="">Selecione um autor</option>
+            <option *ngFor="let author of authors" [value]="author.id">{{ author.name }}</option>
+          </select>
+          <div *ngIf="form.get('authorId')?.errors?.['required'] && form.get('authorId')?.touched"
                class="text-red-500 text-sm mt-1">
             Autor é obrigatório.
           </div>
@@ -63,22 +67,26 @@ export class BookFormComponent implements OnInit {
   isSubmitting = false;
   errorMessage = '';
   userId!: number;
+  authors: Author[] = []; // lista de autores
 
   constructor(
     private fb: FormBuilder,
     private bookService: BookService,
+    private authorService: AuthorService, // injeção do AuthorService
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
   ) {
     this.form = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
-      author: ['', [Validators.required, Validators.minLength(3)]]
+      authorId: ['', Validators.required] // authorId no form
     });
   }
 
   ngOnInit() {
     this.getUserId();
+    this.loadAuthors();
+
     const id = this.route.snapshot.params['id'];
     if (id) {
       this.isEditMode = true;
@@ -94,11 +102,21 @@ export class BookFormComponent implements OnInit {
     }
   }
 
+  private loadAuthors() {
+    this.authorService.getAll().subscribe({
+      next: authors => this.authors = authors,
+      error: err => this.errorMessage = 'Erro ao carregar autores: ' + err.message
+    });
+  }
+
   private loadBook(id: number) {
     this.isSubmitting = true;
     this.bookService.getById(id).subscribe({
       next: (book) => {
-        this.form.patchValue(book);
+        this.form.patchValue({
+          title: book.title,
+          authorId: book.authorId
+        });
         this.isSubmitting = false;
       },
       error: (err) => {
