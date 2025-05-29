@@ -19,19 +19,9 @@
   ],
   "books": [
     {
-      "title": "a casa",
+      "title": "ass",
       "authorId": "1",
-      "id": 7
-    },
-    {
-      "title": "a cas 2",
-      "authorId": "1",
-      "id": 8
-    },
-    {
-      "title": "a casa 3",
-      "authorId": "1",
-      "id": 9
+      "id": 1
     }
   ],
   "profile": {
@@ -47,6 +37,19 @@
       "name": "bruno silva",
       "nationality": "br",
       "id": 1
+    }
+  ],
+  "logs": [
+    {
+      "id": 1,
+      "timestamp": "2025-05-29T10:30:00.000Z",
+      "action": "create",
+      "entity": "book",
+      "message": "Livro criado com sucesso",
+      "details": {
+        "title": "Livro Exemplo",
+        "author": "Autor Exemplo"
+      }
     }
   ]
 }

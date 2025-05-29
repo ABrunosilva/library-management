@@ -37,6 +37,12 @@ import { HeaderComponent } from '../../shared/header/header.component';
             <p class="text-gray-600">Atualize suas informações de usuário.</p>
           </a>
 
+          <a routerLink="logs" class="block bg-white p-6 rounded-2xl shadow hover:shadow-lg transition hover:scale-105">
+    <h2 class="text-xl font-semibold text-gray-700 mb-2">Logs do Sistema</h2>
+    <p class="text-gray-600">Visualize as inclusões, edições e exclusões realizadas.</p>
+  </a>
+
+
         </div>
 
         <!-- Aqui o conteúdo das rotas filhas será renderizado -->

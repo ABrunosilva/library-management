@@ -1,0 +1,21 @@
+<h2>Logs do Sistema</h2>
+
+<!-- Exibe carregamento -->
+<div *ngIf="loading$ | async">Carregando...</div>
+
+<!-- Exibe erro se houver -->
+<div *ngIf="error$ | async as error" class="error">
+  Erro ao carregar logs: {{ error.message || error }}
+</div>
+
+<!-- Lista de logs -->
+<ul *ngIf="(logs$ | async)?.length; else semLogs">
+  <li *ngFor="let log of logs$ | async">
+    <strong>{{ log.timestamp | date:'short' }}:</strong> {{ log.message }}
+  </li>
+</ul>
+
+<!-- Mensagem se não houver logs -->
+<ng-template #semLogs>
+  <p>Nenhum log encontrado.</p>
+</ng-template>
