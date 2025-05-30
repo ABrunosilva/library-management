@@ -1,0 +1,67 @@
+<div class="max-w-xl mx-auto py-8">
+  <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+    {{ isEditMode ? 'Editar Livro' : 'Adicionar Novo Livro' }}
+  </h1>
+
+  <div *ngIf="errorMessage" class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 text-sm">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="bg-white p-6 rounded shadow space-y-6">
+    <!-- Título -->
+    <!-- Título -->
+<div>
+  <label class="block text-sm font-medium mb-1">Título do Livro</label>
+  <input
+    formControlName="title"
+    class="app-input"
+    placeholder="Ex: Dom Casmurro"
+    [class.border-red-500]="form.get('title')?.invalid && form.get('title')?.touched"
+  />
+  <div
+    *ngIf="form.get('title')?.errors?.['required'] && form.get('title')?.touched"
+    class="text-red-500 text-sm mt-1"
+  >
+    Título é obrigatório.
+  </div>
+  <div
+    *ngIf="form.get('title')?.errors?.['minlength'] && form.get('title')?.touched"
+    class="text-red-500 text-sm mt-1"
+  >
+    Mínimo de 3 caracteres.
+  </div>
+</div>
+
+
+    <!-- Autor -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Autor</label>
+      <select
+        formControlName="authorId"
+        class="app-input"
+        [class.border-red-500]="form.get('authorId')?.invalid && form.get('authorId')?.touched"
+      >
+        <option [ngValue]="null">Selecione um autor</option>
+        <option *ngFor="let author of authors" [ngValue]="author.id">
+          {{ author.name }}
+        </option>
+      </select>
+      <div *ngIf="form.get('authorId')?.errors?.['required'] && form.get('authorId')?.touched"
+     class="text-red-500 text-sm mt-1">
+  Autor é obrigatório.
+</div>
+    </div>
+
+    <!-- Botões -->
+    <div class="flex justify-end gap-4">
+      <a routerLink="/home/books" class="app-button-secondary">Cancelar</a>
+      <button
+        type="submit"
+        [disabled]="form.invalid || isSubmitting"
+        class="app-button-primary"
+      >
+        {{ isSubmitting ? 'Salvando...' : 'Salvar' }}
+      </button>
+    </div>
+  </form>
+</div>

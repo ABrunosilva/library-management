@@ -2,6 +2,6 @@
   "/books*": "/$1",
   "/profile": "/profile",
   "/login": "/login",
-  "/register": "/register"
-  
+  "/register": "/register",
+  "/logs": "/logs"  
 }

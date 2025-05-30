@@ -19,8 +19,8 @@
   ],
   "books": [
     {
-      "title": "ass",
-      "authorId": "1",
+      "title": "teste",
+      "authorId": "3",
       "id": 1
     }
   ],
@@ -37,6 +37,21 @@
       "name": "bruno silva",
       "nationality": "br",
       "id": 1
+    },
+    {
+      "name": "as",
+      "nationality": "aaaaaaaaaaaaaa",
+      "id": 2
+    },
+    {
+      "name": "sandro",
+      "nationality": "pb",
+      "id": 3
+    },
+    {
+      "name": "aaaaaaaaaaaaa",
+      "nationality": "aaaaaaaaaaaaaaa",
+      "id": 4
     }
   ],
   "logs": [
@@ -50,6 +65,36 @@
         "title": "Livro Exemplo",
         "author": "Autor Exemplo"
       }
+    },
+    {
+      "action": "create",
+      "entity": "Book",
+      "timestamp": "2025-05-30T10:00:00.000Z",
+      "message": "Teste manual de log",
+      "details": {
+        "teste": true
+      },
+      "id": 2
+    },
+    {
+      "action": "create",
+      "entity": "Book",
+      "timestamp": "2025-05-30T10:00:00.000Z",
+      "message": "Teste manual de log",
+      "details": {
+        "teste": true
+      },
+      "id": 3
+    },
+    {
+      "action": "create",
+      "entity": "Book",
+      "timestamp": "2025-05-30T10:00:00.000Z",
+      "message": "Teste manual de log",
+      "details": {
+        "teste": true
+      },
+      "id": 4
     }
   ]
 }

@@ -1,3 +1,4 @@
+// src/app/services/log.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -5,7 +6,7 @@ import { Log } from '../models/log.model';
 
 @Injectable({ providedIn: 'root' })
 export class LogService {
-  private apiUrl = 'http://localhost:3000/logs';
+  private apiUrl = 'http://localhost:3000/logs';  // Now using real logs endpoint
 
   constructor(private http: HttpClient) {}
 

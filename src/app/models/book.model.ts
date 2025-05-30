@@ -1,7 +1,6 @@
-// src/app/models/book.model.ts
 export interface Book {
-  id: number;
+  id: number; // Remove optional (?) - make required
   title: string;
-  authorId: number;
+  authorId: number; // Change from number | string to just number
   userId?: number;
 }
