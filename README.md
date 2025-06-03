@@ -14,6 +14,7 @@ Sistema Web (Administração): Plataforma Angular para gestão do acervo
 Sistema Mobile (Android): Aplicativo para usuários realizarem empréstimos
 
 Funcionalidades Principais
+
 🖥️ Sistema Web (Staff)
 Gestão de Acervo
 
@@ -28,10 +29,6 @@ Registro detalhado de logs (histórico de alterações)
 Dashboard de gestão
 
 Processamento de Empréstimos
-
-Leitura de QR Codes gerados pelo app mobile
-
-Confirmação/baixa de empréstimos
 
 
 Frontend Web: Angular 16+ (Componentes standalone)
