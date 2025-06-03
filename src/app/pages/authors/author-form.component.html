@@ -1,0 +1,52 @@
+<!-- src/app/pages/authors/author-form.component.html -->
+<div class="max-w-xl mx-auto py-8">
+  <h1 class="text-2xl font-bold mb-6">{{ isEditMode ? 'Editar Autor' : 'Novo Autor' }}</h1>
+  
+  <div *ngIf="errorMessage" class="bg-red-100 text-red-700 p-4 rounded mb-4">
+    {{ errorMessage }}
+  </div>
+  
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="bg-white p-6 rounded shadow space-y-6">
+    <div>
+      <label for="name" class="block text-sm font-medium text-gray-700">Nome *</label>
+      <input 
+        type="text" 
+        id="name" 
+        formControlName="name" 
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+        [class.border-red-300]="form.get('name')?.invalid && (form.get('name')?.dirty || form.get('name')?.touched)"
+      >
+      <div *ngIf="form.get('name')?.invalid && (form.get('name')?.dirty || form.get('name')?.touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="form.get('name')?.errors?.['required']">Nome é obrigatório.</div>
+        <div *ngIf="form.get('name')?.errors?.['minlength']">Nome deve ter pelo menos 3 caracteres.</div>
+      </div>
+    </div>
+    
+    <div>
+      <label for="nationality" class="block text-sm font-medium text-gray-700">Nacionalidade</label>
+      <input 
+        type="text" 
+        id="nationality" 
+        formControlName="nationality" 
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+      >
+    </div>
+    
+    <div class="flex justify-end gap-4">
+      <button 
+        type="button" 
+        (click)="navigateToAuthors()" 
+        class="app-button-secondary"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        [disabled]="form.invalid || isSubmitting"
+        class="app-button-primary"
+      >
+        {{ isSubmitting ? 'Salvando...' : 'Salvar' }}
+      </button>
+    </div>
+  </form>
+</div>

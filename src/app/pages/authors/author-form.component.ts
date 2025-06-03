@@ -1,122 +1,96 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthorService } from '../../services/author.service';
-import { BookService } from '../../services/book.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Author } from '../../models/author.model';
-import { Book } from '../../models/book.model'; // Add Book import
 
 @Component({
   standalone: true,
   selector: 'app-author-form',
   imports: [CommonModule, ReactiveFormsModule],
-  template: `
-    <!-- template remains unchanged -->
-  `
+  templateUrl: './author-form.component.html'
 })
 export class AuthorFormComponent implements OnInit {
-  form!: FormGroup;
-  loading = false;
-  authors: Author[] = [];
-  error = '';
-  isEditing = false;
-  editingAuthorId: number | null = null;
+  private fb = inject(FormBuilder);
+  private authorService = inject(AuthorService);
+  private route = inject(ActivatedRoute);
+  
+  // Make router public to access in template
+  router = inject(Router);
 
-  constructor(
-    private fb: FormBuilder,
-    private authorService: AuthorService,
-    private bookService: BookService,
-    private router: Router
-  ) {}
+  form!: FormGroup;
+  isEditMode = false;
+  isSubmitting = false;
+  errorMessage = '';
+  authorId: number | null = null;
 
   ngOnInit(): void {
+    const id = this.route.snapshot.params['id'];
     this.form = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(3)]],
       nationality: ['']
     });
-    this.loadAuthors();
+
+    if (id) {
+      this.isEditMode = true;
+      this.authorId = +id;
+      this.loadAuthor(this.authorId);
+    }
   }
 
-  loadAuthors() {
-    this.authorService.getAll().subscribe({
-      next: (data) => {
-        this.authors = data;
-        this.error = '';
+  loadAuthor(id: number) {
+    this.isSubmitting = true;
+    this.authorService.getById(id).subscribe({
+      next: (author) => {
+        this.form.patchValue({
+          name: author.name,
+          nationality: author.nationality || ''
+        });
+        this.isSubmitting = false;
       },
       error: (err) => {
-        this.error = err.message || 'Erro na comunicação com o servidor.';
+        this.errorMessage = 'Erro ao carregar autor: ' + (err.message || 'Unknown error');
+        this.isSubmitting = false;
       }
     });
   }
 
-  submit() {
+  onSubmit() {
     if (this.form.invalid) return;
 
-    this.loading = true;
+    this.isSubmitting = true;
+    this.errorMessage = '';
 
-    if (this.isEditing && this.editingAuthorId != null) {
-      this.authorService.update(this.editingAuthorId, this.form.value).subscribe({
+    const authorData = this.form.value;
+
+    if (this.isEditMode && this.authorId) {
+      this.authorService.update(this.authorId, authorData).subscribe({
         next: () => {
-          this.loading = false;
-          this.resetForm();
-          this.loadAuthors();
+          this.router.navigate(['/home/authors']);
+          this.isSubmitting = false;
         },
-        error: () => {
-          this.loading = false;
-          alert('Erro ao atualizar o autor.');
+        error: (err) => {
+          this.errorMessage = 'Erro: ' + (err.error?.message || err.message || 'Unknown error');
+          this.isSubmitting = false;
         }
       });
     } else {
-      this.authorService.create(this.form.value).subscribe({
+      this.authorService.create(authorData).subscribe({
         next: () => {
-          this.loading = false;
-          this.resetForm();
-          this.loadAuthors();
+          this.router.navigate(['/home/authors']);
+          this.isSubmitting = false;
         },
-        error: () => {
-          this.loading = false;
-          alert('Erro ao criar o autor.');
+        error: (err) => {
+          this.errorMessage = 'Erro: ' + (err.error?.message || err.message || 'Unknown error');
+          this.isSubmitting = false;
         }
       });
     }
   }
 
-  editAuthor(author: Author) {
-    this.isEditing = true;
-    this.editingAuthorId = author.id!;
-    this.form.setValue({
-      name: author.name,
-      nationality: author.nationality || ''
-    });
-  }
-
-  deleteAuthor(author: Author) {
-    // Fix: Added type for books parameter
-    this.bookService.getByAuthorId(author.id!).subscribe({
-      next: (books: Book[]) => {
-        if (books.length > 0) {
-          alert('Não é possível excluir este autor pois ele possui livros cadastrados.');
-        } else {
-          if (confirm(`Confirma a exclusão do autor "${author.name}"?`)) {
-            this.authorService.delete(author.id!).subscribe({
-              next: () => this.loadAuthors(),
-              error: () => alert('Erro ao excluir o autor.')
-            });
-          }
-        }
-      },
-      error: () => alert('Erro ao verificar livros do autor.')
-    });
-  }
-
-  cancelEdit() {
-    this.resetForm();
-  }
-
-  resetForm() {
-    this.isEditing = false;
-    this.editingAuthorId = null;
-    this.form.reset();
+  // Add public method to handle navigation
+  navigateToAuthors() {
+    this.router.navigate(['/home/authors']);
   }
 }

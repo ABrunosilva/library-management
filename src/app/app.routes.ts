@@ -14,6 +14,9 @@ export const routes: Routes = [
       { path: 'authors/new', loadComponent: () => import('./pages/authors/author-form.component').then(m => m.AuthorFormComponent) },
       { path: 'logs', loadComponent: () => import('./pages/logs/logs.component').then(m => m.LogsComponent) },
       { path: 'books/by-author', loadComponent: () => import('./pages/books/books-by-author.component').then(m => m.BooksByAuthorComponent) },
+      { path: 'authors', loadComponent: () => import('./pages/authors/authors.component').then(m => m.AuthorsComponent) },
+      { path: 'authors/new', loadComponent: () => import('./pages/authors/author-form.component').then(m => m.AuthorFormComponent) },
+      { path: 'authors/edit/:id', loadComponent: () => import('./pages/authors/author-form.component').then(m => m.AuthorFormComponent) },
       { path: '', redirectTo: 'books', pathMatch: 'full' }
     ]
   },
