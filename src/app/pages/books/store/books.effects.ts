@@ -1,17 +1,22 @@
+// src/app/pages/books/store/books.effects.ts
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as BookActions from './books.actions';
 import { BookService } from '../../../services/book.service';
 import { LogService } from '../../../services/log.service';
-import { mergeMap, map, catchError, of } from 'rxjs';
+import { mergeMap, map, catchError, of, tap } from 'rxjs';
 import { Book } from '../../../models/book.model';
 import { Log } from '../../../models/log.model';
+import * as LogActions from '../../logs/store/logs.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../store/app.state';
 
 @Injectable()
-export class BooksEffects {
+export class BooksEffects {  // Fixed: Added proper export
   private actions$ = inject(Actions);
   private bookService = inject(BookService);
   private logService = inject(LogService);
+  private store = inject(Store<AppState>);
 
   // Load books
   loadBooks$ = createEffect(() =>
@@ -26,15 +31,27 @@ export class BooksEffects {
     )
   );
 
+  // Load authors
+  loadAuthors$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BookActions.loadAuthors),
+      mergeMap(() =>
+        this.bookService.getAllAuthors().pipe(
+          map(authors => BookActions.loadAuthorsSuccess({ authors })),
+          catchError(error => of(BookActions.loadAuthorsFailure({ error })))
+        )
+      )
+    )
+  );
+
   // Create book
   createBook$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BookActions.createBook),
       mergeMap(({ book }) => {
-        // Create payload without id
         const payload: Omit<Book, 'id'> = {
           title: book.title,
-          authorId: Number(book.authorId), // Convert to number
+          authorId: Number(book.authorId),
           userId: book.userId ? Number(book.userId) : undefined
         };
         
@@ -65,7 +82,10 @@ export class BooksEffects {
         };
         
         return this.logService.addLog(logEntry).pipe(
-          map(() => ({ type: '[Logs] Create Log Success' })),
+          map(createdLog => {
+            this.store.dispatch(LogActions.addLog({ log: createdLog }));
+            return { type: '[Logs] Create Log Success' };
+          }),
           catchError(() => of({ type: '[Logs] Create Log Error' }))
         );
       })
@@ -83,7 +103,6 @@ export class BooksEffects {
           }));
         }
         
-        // Create update payload
         const payload: Partial<Book> = {
           title: book.title,
           authorId: book.authorId ? Number(book.authorId) : undefined,
@@ -117,7 +136,10 @@ export class BooksEffects {
         };
         
         return this.logService.addLog(logEntry).pipe(
-          map(() => ({ type: '[Logs] Update Log Success' })),
+          map(createdLog => {
+            this.store.dispatch(LogActions.addLog({ log: createdLog }));
+            return { type: '[Logs] Update Log Success' };
+          }),
           catchError(() => of({ type: '[Logs] Update Log Error' }))
         );
       })
@@ -151,7 +173,10 @@ export class BooksEffects {
         };
         
         return this.logService.addLog(logEntry).pipe(
-          map(() => ({ type: '[Logs] Delete Log Success' })),
+          map(createdLog => {
+            this.store.dispatch(LogActions.addLog({ log: createdLog }));
+            return { type: '[Logs] Delete Log Success' };
+          }),
           catchError(() => of({ type: '[Logs] Delete Log Error' }))
         );
       })

@@ -5,3 +5,4 @@ import { Log } from '../../../models/log.model';
 export const loadLogs = createAction('[Logs] Load Logs');
 export const loadLogsSuccess = createAction('[Logs] Load Logs Success', props<{ logs: Log[] }>());
 export const loadLogsFailure = createAction('[Logs] Load Logs Failure', props<{ error: any }>());
+export const addLog = createAction('[Logs] Add Log', props<{ log: Log }>());

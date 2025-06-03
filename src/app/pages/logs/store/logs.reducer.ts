@@ -17,7 +17,23 @@ export const initialState: LogsState = {
 
 export const logsReducer = createReducer(
   initialState,
-  on(LogActions.loadLogs, (state) => ({ ...state, loading: true, error: null })),
-  on(LogActions.loadLogsSuccess, (state, { logs }) => ({ ...state, loading: false, logs })),
-  on(LogActions.loadLogsFailure, (state, { error }) => ({ ...state, loading: false, error }))
+  on(LogActions.loadLogs, (state) => ({ 
+    ...state, 
+    loading: true, 
+    error: null 
+  })),
+  on(LogActions.loadLogsSuccess, (state, { logs }) => ({ 
+    ...state, 
+    loading: false, 
+    logs 
+  })),
+  on(LogActions.loadLogsFailure, (state, { error }) => ({ 
+    ...state, 
+    loading: false, 
+    error 
+  })),
+  on(LogActions.addLog, (state, { log }) => ({
+    ...state,
+    logs: [log, ...state.logs]  // Newest first
+  }))
 );

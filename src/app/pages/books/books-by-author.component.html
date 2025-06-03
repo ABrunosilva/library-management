@@ -1,0 +1,17 @@
+<h1 class="text-2xl font-bold mb-6">Livros por Autor</h1>
+
+<ul *ngIf="authorsWithBooks$ | async as authorsWithBooks">
+  <li *ngFor="let author of authorsWithBooks" class="mb-4 border-b pb-2">
+    <h2 class="text-lg font-semibold">{{ author.name }}</h2>
+
+    <ul class="ml-4 list-disc" *ngIf="author.books.length > 0; else noBooks">
+      <li *ngFor="let book of author.books">
+        {{ book.title }}
+      </li>
+    </ul>
+
+    <ng-template #noBooks>
+      <p class="ml-4 text-gray-500 italic">Nenhum livro encontrado para este autor.</p>
+    </ng-template>
+  </li>
+</ul>

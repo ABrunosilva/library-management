@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Book } from '../models/book.model';
+import { Author } from '../models/author.model';
 
 @Injectable({ providedIn: 'root' })
 export class BookService {
@@ -53,6 +54,11 @@ export class BookService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  getAllAuthors(): Observable<Author[]> {
+    return this.http.get<Author[]>(`${this.apiUrl}/authors`);
+  }
+ 
 
   getByAuthorId(authorId: number): Observable<Book[]> {
     return this.http.get<Book[]>(`${this.apiUrl}?authorId=${authorId}`).pipe(

@@ -42,6 +42,12 @@ import { HeaderComponent } from '../../shared/header/header.component';
     <p class="text-gray-600">Visualize as inclusões, edições e exclusões realizadas.</p>
   </a>
 
+  <a routerLink="books/by-author" class="block bg-white p-6 rounded-2xl shadow hover:shadow-lg transition hover:scale-105">
+  <h2 class="text-xl font-semibold text-gray-700 mb-2">Livros por Autor</h2>
+  <p class="text-gray-600">Veja os livros agrupados por seus autores.</p>
+</a>
+
+
 
         </div>
 
