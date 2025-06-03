@@ -6,65 +6,62 @@ import { Author } from '../models/author.model';
 
 @Injectable({ providedIn: 'root' })
 export class BookService {
-  private apiUrl = 'http://localhost:3000/books';
+  private baseUrl = 'http://localhost:3000';  // Changed to baseUrl
 
   constructor(private http: HttpClient) { }
 
+  // All book endpoints
   getAll(): Observable<Book[]> {
-    return this.http.get<any[]>(this.apiUrl).pipe(
+    return this.http.get<Book[]>(`${this.baseUrl}/books`).pipe(  // Fixed endpoint
       map(books => books.map(book => ({
-        id: book.id,
-        title: book.title,
-        authorId: Number(book.authorId),  // Fixed: Removed extra )
-        userId: book.userId ? Number(book.userId) : undefined
+        ...book,
+        authorId: Number(book.authorId)
       })))
     );
   }
 
   getById(id: number): Observable<Book> {
-    return this.http.get<Book>(`${this.apiUrl}/${id}`).pipe(
+    return this.http.get<Book>(`${this.baseUrl}/books/${id}`).pipe(  // Fixed endpoint
       map(book => ({
         ...book,
-        authorId: Number(book.authorId),  // Fixed: Removed extra )
+        authorId: Number(book.authorId),
         userId: book.userId ? Number(book.userId) : undefined
       }))
     );
   }
 
   create(book: Omit<Book, 'id'>): Observable<Book> {
-    // Ensure authorId is number
     const payload = {
       ...book,
-      authorId: Number(book.authorId),  // Fixed: Removed extra )
+      authorId: Number(book.authorId),
       userId: book.userId ? Number(book.userId) : undefined
     };
-    return this.http.post<Book>(this.apiUrl, payload);
+    return this.http.post<Book>(`${this.baseUrl}/books`, payload);  // Fixed endpoint
   }
 
   update(id: number, book: Partial<Book>): Observable<Book> {
-    // Ensure authorId is number
     const payload = {
       ...book,
       authorId: book.authorId ? Number(book.authorId) : undefined,
       userId: book.userId ? Number(book.userId) : undefined
     };
-    return this.http.patch<Book>(`${this.apiUrl}/${id}`, payload);
+    return this.http.patch<Book>(`${this.baseUrl}/books/${id}`, payload);  // Fixed endpoint
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.baseUrl}/books/${id}`);  // Fixed endpoint
   }
 
+  // Author endpoints
   getAllAuthors(): Observable<Author[]> {
-    return this.http.get<Author[]>(`${this.apiUrl}/authors`);
+    return this.http.get<Author[]>(`${this.baseUrl}/authors`);  // Fixed endpoint
   }
- 
 
   getByAuthorId(authorId: number): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.apiUrl}?authorId=${authorId}`).pipe(
+    return this.http.get<Book[]>(`${this.baseUrl}/books?authorId=${authorId}`).pipe(  // Fixed endpoint
       map(books => books.map(book => ({
         ...book,
-        authorId: Number(book.authorId),  // Fixed: Removed extra )
+        authorId: Number(book.authorId),
         userId: book.userId ? Number(book.userId) : undefined
       }))
     ));

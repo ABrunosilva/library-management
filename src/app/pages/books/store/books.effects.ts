@@ -33,16 +33,16 @@ export class BooksEffects {  // Fixed: Added proper export
 
   // Load authors
   loadAuthors$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(BookActions.loadAuthors),
-      mergeMap(() =>
-        this.bookService.getAllAuthors().pipe(
-          map(authors => BookActions.loadAuthorsSuccess({ authors })),
-          catchError(error => of(BookActions.loadAuthorsFailure({ error })))
-        )
+  this.actions$.pipe(
+    ofType(BookActions.loadAuthors),
+    mergeMap(() =>
+      this.bookService.getAllAuthors().pipe(
+        map(authors => BookActions.loadAuthorsSuccess({ authors })),
+        catchError(error => of(BookActions.loadAuthorsFailure({ error })))
       )
     )
-  );
+  )
+);
 
   // Create book
   createBook$ = createEffect(() =>

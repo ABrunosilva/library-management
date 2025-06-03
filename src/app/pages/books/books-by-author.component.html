@@ -1,17 +1,29 @@
+<!-- src/app/pages/books/books-by-author.component.html -->
 <h1 class="text-2xl font-bold mb-6">Livros por Autor</h1>
 
-<ul *ngIf="authorsWithBooks$ | async as authorsWithBooks">
-  <li *ngFor="let author of authorsWithBooks" class="mb-4 border-b pb-2">
-    <h2 class="text-lg font-semibold">{{ author.name }}</h2>
+<div *ngIf="loading$ | async" class="text-center py-4">
+  <div class="spinner"></div>
+  <p>Carregando dados...</p>
+</div>
 
-    <ul class="ml-4 list-disc" *ngIf="author.books.length > 0; else noBooks">
-      <li *ngFor="let book of author.books">
-        {{ book.title }}
-      </li>
-    </ul>
+<div *ngIf="!(loading$ | async)">
+  <ul *ngIf="authorsWithBooks$ | async as authorsWithBooks; else noData">
+    <li *ngFor="let item of authorsWithBooks" class="mb-4 border-b pb-2">
+      <h2 class="text-lg font-semibold">{{ item.author.name }}</h2>
 
-    <ng-template #noBooks>
-      <p class="ml-4 text-gray-500 italic">Nenhum livro encontrado para este autor.</p>
-    </ng-template>
-  </li>
-</ul>
+      <ul class="ml-4 list-disc" *ngIf="item.books.length > 0; else noBooks">
+        <li *ngFor="let book of item.books">
+          {{ book.title }}
+        </li>
+      </ul>
+
+      <ng-template #noBooks>
+        <p class="ml-4 text-gray-500 italic">Nenhum livro encontrado para este autor.</p>
+      </ng-template>
+    </li>
+  </ul>
+
+  <ng-template #noData>
+    <p class="text-gray-500 italic">Nenhum autor encontrado.</p>
+  </ng-template>
+</div>

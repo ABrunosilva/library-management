@@ -19,3 +19,7 @@ export const selectBooksByAuthor = createSelector(
   (books) => (authorId: number) =>
     books.filter(book => book.authorId === authorId)
 );
+export const selectBooksLoading = createSelector(
+  selectBooksState,
+  (state: BooksState) => state.loading
+);

@@ -1,7 +1,10 @@
 {
-  "/books*": "/$1",
+  "/books": "/books",
+  "/books/:id": "/books/:id",
+  "/authors": "/authors",
+  "/authors/:id": "/authors/:id",
   "/profile": "/profile",
   "/login": "/login",
   "/register": "/register",
-  "/logs": "/logs"  
+  "/logs": "/logs"
 }
