@@ -33,33 +33,7 @@ Leitura de QR Codes gerados pelo app mobile
 
 Confirmação/baixa de empréstimos
 
-📱 Sistema Mobile (Usuários)
-Busca e seleção de livros
 
-Escolha de localização na biblioteca
-
-Geração automática de QR Code único contendo:
-
-ID do livro
-
-ID do usuário
-
-Localização física
-
-Timestamp
-
-Fluxo de Empréstimo
-Diagram
-Code
-sequenceDiagram
-    Usuário Mobile->>+App Android: Seleciona livro e local
-    App Android-->>-Usuário Mobile: Gera QR Code
-    Usuário Mobile->>Bibliotecário: Apresenta QR Code
-    Bibliotecário->>Sistema Web: Escaneia código
-    Sistema Web->>Banco de Dados: Registra empréstimo
-    Sistema Web-->>Bibliotecário: Confirma liberação
-    Bibliotecário->>Usuário: Entrega livro físico
-Stack Tecnológica
 Frontend Web: Angular 16+ (Componentes standalone)
 
 Estado: NgRx (Redux pattern)
